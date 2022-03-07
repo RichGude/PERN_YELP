@@ -1,0 +1,82 @@
+/* Apply animation to modal appearance */
+@keyframes phaseIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+@keyframes phaseOut {
+    from {opacity: 1; visibility: visible;}
+    to {opacity: 0; visibility: hidden;}
+}
+
+.backFadeIn {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation-name: phaseIn;
+    animation-duration: 0.5s;
+}
+
+.back{
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+}
+
+.FadeOut {
+    animation-name: phaseOut;
+    animation-duration: 0.5s;
+}
+
+.ModalWrapper {
+    width: 800px;
+    height: 500px;
+    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
+    background: #fff;
+    color: #000;
+    display: grid;
+    /* grid-template-columns: 1fr 1fr; */
+    position: relative;
+    z-index: 10;
+    border-radius: 10px;
+}
+
+.ModalContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    line-height: 1.8;
+    color: #141414;
+}
+
+.ModalButton {
+    padding: 10px 24px;
+    background: #141414;
+    color: #fff;
+    border: none
+}
+
+.CloseModalButton {
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    z-index: 10;
+}
+
