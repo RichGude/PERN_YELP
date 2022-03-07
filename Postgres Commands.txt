@@ -1,0 +1,38 @@
+A list of all of the commands to be utilized in the PostGres SQL Shell:
+for help:		\?
+list databases:		\l
+list tables:		\d
+list table schema:	\d [table_name]
+
+create database:	CREATE DATABASE [db_name];
+connect to database:	\c [db_name]
+
+create table:		CREATE TABLE restaurants (
+				id BIGSERIAL NOT NULL PRIMARY KEY,
+				name VARCHAR(20) NOT NULL,
+				location VARCHAR(20) NOT NULL,
+				price_range INT NOT NULL CHECK (price_range >= 1 AND price_range <= 5));
+delete table:		DROP TABLE products;
+
+add column:		ALTER TABLE [table_name] ADD COLUMN [col_name] [col_type];
+delete column:		ALTER TABLE [table_name] DROP COLUMN [col_name];
+
+add document:		INSERT INTO restaurants (id, name, location, price_range)
+				VALUES (123, 'Taco Bell', 'New York', 1);
+			*NOTE: single quotes is necessary for strings
+
+aggregate functions:	SELECT COUNT(*) FROM restaurants;
+			SELECT TRUNC(AVG(rating), 2) AS average_review FROM reviews;
+			SELECT AVG(rating) FROM reviews WHERE restaurant_id = 2;
+			SELECT location, COUNT(location) from restaurants GROUP BY location;
+			SELECT * FROM restaurants INNER JOIN reviews ON restaurants.id = reviews.restaurant_id;
+
+CREATE TABLE reviews  (
+	id BIGSERIAL NOT NULL PRIMARY KEY,
+	restaurant_id BIGINT NOT NULL REFERENCES restaurants(id),
+	name VARCHAR(50) NOT NULL,
+	review TEXT NOT NULL,
+	rating INT NOT NULL check(rating >= 1 and rating <=5)
+);
+
+create a join table:	SELECT * FROM restaurants LEFT JOIN (SELECT restaurant_id, COUNT(*), TRUNC(AVG(rating), 1) AS average_rating FROM reviews GROUP BY restaurant_id) reviews ON restaurants.id = reviews.restaurant_id; 
